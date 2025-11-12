@@ -9,6 +9,8 @@ interface ImageStat {
   clicks: number
   averageRank: number | null
   rankCount: number
+  averagePosition: number | null
+  positionCount: number
 }
 
 interface Analytics {
@@ -244,13 +246,21 @@ export default function AdminDashboard() {
                         </p>
                       </div>
                       
-                      <div className="flex gap-6 text-center">
+                      <div className="flex gap-4 text-center">
                         <div>
                           <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">
                             {stat.clicks}
                           </p>
                           <p className="text-xs text-gray-600 dark:text-gray-400">
                             Clicks
+                          </p>
+                        </div>
+                        <div>
+                          <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">
+                            {stat.averagePosition !== null ? `#${(stat.averagePosition + 1).toFixed(0)}` : 'N/A'}
+                          </p>
+                          <p className="text-xs text-gray-600 dark:text-gray-400">
+                            Avg Position
                           </p>
                         </div>
                         <div>

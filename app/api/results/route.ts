@@ -4,7 +4,7 @@ import { prisma } from '@/lib/prisma'
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { userId, userName, eventType, topicName, imageUrl, value } = body
+    const { userId, userName, eventType, topicName, imageUrl, value, position } = body
     
     // Validate required fields
     if (!userId || !userName || !eventType || !topicName || !imageUrl || value === undefined) {
@@ -23,6 +23,7 @@ export async function POST(request: NextRequest) {
         topicName,
         imageUrl,
         value: parseInt(value),
+        position: position !== undefined ? parseInt(position) : null,
       },
     })
     

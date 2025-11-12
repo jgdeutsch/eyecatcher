@@ -34,6 +34,7 @@ interface RankTestProps {
     topicName: string
     imageUrl: string
     value: number
+    position?: number
   }) => Promise<void>
 }
 

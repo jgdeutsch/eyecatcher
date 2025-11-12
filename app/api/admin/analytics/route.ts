@@ -54,12 +54,30 @@ export async function GET(request: NextRequest) {
       averageRanks[url] = rankSums[url] / rankCounts[url]
     })
     
+    // Calculate average position for clicked images
+    const positionSums: Record<string, number> = {}
+    const positionCounts: Record<string, number> = {}
+    
+    clickEvents.forEach(event => {
+      if (event.position !== null && event.position !== undefined) {
+        positionSums[event.imageUrl] = (positionSums[event.imageUrl] || 0) + event.position
+        positionCounts[event.imageUrl] = (positionCounts[event.imageUrl] || 0) + 1
+      }
+    })
+    
+    const averagePositions: Record<string, number> = {}
+    Object.keys(positionSums).forEach(url => {
+      averagePositions[url] = positionSums[url] / positionCounts[url]
+    })
+    
     // Combine data
     const imageStats = Object.keys(clickCounts).map(imageUrl => ({
       imageUrl,
       clicks: clickCounts[imageUrl] || 0,
       averageRank: averageRanks[imageUrl] || null,
       rankCount: rankCounts[imageUrl] || 0,
+      averagePosition: averagePositions[imageUrl] || null,
+      positionCount: positionCounts[imageUrl] || 0,
     }))
     
     // Sort by clicks (descending)

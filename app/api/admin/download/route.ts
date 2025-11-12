@@ -38,6 +38,7 @@ export async function GET(request: NextRequest) {
       'Topic Name',
       'Image URL',
       'Value',
+      'Position',
     ]
     
     const csvRows = [
@@ -51,6 +52,7 @@ export async function GET(request: NextRequest) {
         `"${r.topicName}"`,
         `"${r.imageUrl}"`,
         r.value,
+        r.position !== null ? r.position : '',
       ].join(',')),
     ]
     

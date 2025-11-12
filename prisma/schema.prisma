@@ -24,9 +24,11 @@ model GameResult {
   topicName String   @db.VarChar(255)
   imageUrl  String   @db.Text
   value     Int      // LOAD: position, CLICK: 1 (or 0 for unclick), RANK: 1, 2, 3...
+  position  Int?     // Position in grid (0-based index)
   
   @@index([userId])
   @@index([userName])
   @@index([topicName])
+  @@index([position])
 }
 

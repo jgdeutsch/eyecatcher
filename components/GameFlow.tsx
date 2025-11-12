@@ -54,6 +54,7 @@ export default function GameFlow() {
     topicName: string
     imageUrl: string
     value: number
+    position?: number
   }) => {
     try {
       await fetch('/api/results', {

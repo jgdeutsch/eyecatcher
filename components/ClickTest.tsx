@@ -16,6 +16,7 @@ interface ClickTestProps {
     topicName: string
     imageUrl: string
     value: number
+    position?: number
   }) => Promise<void>
 }
 
@@ -68,12 +69,16 @@ export default function ClickTest({ topic, onComplete, logEvent }: ClickTestProp
     
     setClickedImages(newClickedImages)
 
+    // Find position of clicked image
+    const position = shuffledImages.indexOf(imageUrl)
+
     // Log CLICK event
     await logEvent({
       eventType: 'CLICK',
       topicName: topic.name,
       imageUrl,
       value: isNowClicked ? 1 : 0, // 1 for click, 0 for unclick
+      position, // Position in grid
     })
   }
 
