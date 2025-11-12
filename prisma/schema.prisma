@@ -1,0 +1,31 @@
+// This is your Prisma schema file.
+// For local development, we use SQLite
+// For Vercel deployment, switch to postgresql with POSTGRES_PRISMA_URL
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model GameResult {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  
+  // User/Session Info
+  userId    String   // Anonymous ID from cookie/localStorage
+  userName  String   // User's entered name
+  
+  // Event Details
+  eventType String   // "LOAD", "CLICK", "RANK"
+  topicName String
+  imageUrl  String
+  value     Int      // LOAD: position, CLICK: 1 (or 0 for unclick), RANK: 1, 2, 3...
+  
+  @@index([userId])
+  @@index([userName])
+}
+
