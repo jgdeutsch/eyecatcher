@@ -27,6 +27,7 @@ export default function AdminDashboard() {
   const [analytics, setAnalytics] = useState<Analytics | null>(null)
   const [loading, setLoading] = useState(true)
   const [downloading, setDownloading] = useState(false)
+  const [modalImage, setModalImage] = useState<string | null>(null)
   const router = useRouter()
 
   useEffect(() => {
@@ -230,7 +231,11 @@ export default function AdminDashboard() {
                         </div>
                       </div>
                       
-                      <div className="relative w-24 h-24 rounded-lg overflow-hidden flex-shrink-0">
+                      <button
+                        onClick={() => setModalImage(stat.imageUrl)}
+                        className="relative w-24 h-24 rounded-lg overflow-hidden flex-shrink-0 hover:ring-2 hover:ring-indigo-500 transition-all cursor-pointer"
+                        title="Click to view full size"
+                      >
                         <Image
                           src={stat.imageUrl}
                           alt={`Image ${index + 1}`}
@@ -238,12 +243,17 @@ export default function AdminDashboard() {
                           sizes="96px"
                           className="object-cover"
                         />
-                      </div>
+                      </button>
                       
                       <div className="flex-1 min-w-0">
-                        <p className="text-sm text-gray-500 dark:text-gray-400 truncate">
+                        <a
+                          href={stat.imageUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-xs font-mono text-blue-600 dark:text-blue-400 hover:underline block truncate"
+                        >
                           {stat.imageUrl}
-                        </p>
+                        </a>
                       </div>
                       
                       <div className="flex gap-4 text-center">
@@ -296,6 +306,44 @@ export default function AdminDashboard() {
           </div>
         )}
       </main>
+
+      {/* Image Modal */}
+      {modalImage && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4"
+          onClick={() => setModalImage(null)}
+        >
+          <div className="relative max-w-5xl max-h-[90vh] w-full h-full flex items-center justify-center">
+            <button
+              onClick={() => setModalImage(null)}
+              className="absolute top-4 right-4 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-full w-10 h-10 flex items-center justify-center hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors z-10"
+              title="Close"
+            >
+              ✕
+            </button>
+            <div className="relative w-full h-full flex items-center justify-center">
+              <Image
+                src={modalImage}
+                alt="Full size image"
+                fill
+                className="object-contain"
+                sizes="(max-width: 1280px) 100vw, 1280px"
+              />
+            </div>
+            <div className="absolute bottom-4 left-4 right-4 bg-white dark:bg-gray-800 bg-opacity-90 dark:bg-opacity-90 rounded-lg p-3">
+              <a
+                href={modalImage}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs font-mono text-blue-600 dark:text-blue-400 hover:underline block truncate"
+                onClick={(e) => e.stopPropagation()}
+              >
+                {modalImage}
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
