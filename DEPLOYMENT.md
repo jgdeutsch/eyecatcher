@@ -45,6 +45,7 @@ This guide will help you deploy the Google Shopping Eye Catcher app to Vercel wi
    - Add:
      - `DATABASE_URL` = [Your Neon pooled connection string]
      - `DIRECT_URL` = [Your Neon direct connection string]
+     - `ADMIN_PASSWORD` = [Your secure admin password]
 6. Click **"Deploy"**
 
 ### Option B: Via Vercel CLI
