@@ -13,10 +13,10 @@ export default function Instructions({ onReady }: InstructionsProps) {
         <div className="space-y-6 mb-8">
           <div className="bg-teal-50 dark:bg-gray-700 p-6 rounded-lg">
             <h3 className="text-2xl font-semibold mb-3 text-teal-700 dark:text-teal-300">
-              Phase 1: Click Test (5 seconds)
+              Phase 1: Click Test (10 seconds)
             </h3>
             <p className="text-gray-700 dark:text-gray-300 text-lg">
-              For each topic, you'll see a <strong>3-second countdown</strong> showing the topic name. Then, a grid of Google Shopping product images will appear. You have <strong>5 seconds</strong> to click on the images that catch your eye. Click as many as you like!
+              For each topic, you'll see a <strong>3-second countdown</strong> showing the topic name. Then, a grid of Google Shopping product images will appear. You have <strong>10 seconds</strong> to click on the images that catch your eye. Click as many as you like!
             </p>
           </div>
           

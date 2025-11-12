@@ -20,7 +20,7 @@ interface ClickTestProps {
 }
 
 export default function ClickTest({ topic, onComplete, logEvent }: ClickTestProps) {
-  const [timeRemaining, setTimeRemaining] = useState(5)
+  const [timeRemaining, setTimeRemaining] = useState(10)
   const [clickedImages, setClickedImages] = useState<Set<string>>(new Set())
   const [shuffledImages, setShuffledImages] = useState<string[]>([])
 
@@ -78,7 +78,7 @@ export default function ClickTest({ topic, onComplete, logEvent }: ClickTestProp
   }
 
   // Calculate progress percentage
-  const progressPercentage = ((5 - timeRemaining) / 5) * 100
+  const progressPercentage = ((10 - timeRemaining) / 10) * 100
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-900 dark:to-gray-800 p-8">
