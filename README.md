@@ -38,11 +38,15 @@ npm install
 Create a `.env` file in the root directory:
 
 ```env
-POSTGRES_PRISMA_URL="your-vercel-postgres-url"
-POSTGRES_URL_NON_POOLING="your-vercel-postgres-non-pooling-url"
+# Database (for development, use any PostgreSQL or the example below)
+DATABASE_URL="postgresql://user:password@localhost:5432/eyecatcher?schema=public"
+DIRECT_URL="postgresql://user:password@localhost:5432/eyecatcher?schema=public"
+
+# Admin Dashboard Password
+ADMIN_PASSWORD="your-secure-password-here"
 ```
 
-You can get these values from your Vercel Postgres database dashboard.
+For production (Neon), get connection strings from your [Neon Console](https://console.neon.tech).
 
 3. **Set up the database**:
 
@@ -141,25 +145,43 @@ model GameResult {
 
 ## Viewing Results
 
-You can view all the stored results in two ways:
+### Admin Dashboard (Recommended)
 
-1. **Prisma Studio** (Recommended):
+The app includes a built-in admin dashboard for viewing analytics and downloading data:
+
+1. **Access**: Navigate to `/admin` (e.g., `http://localhost:3000/admin` or `https://eyecatcher.vercel.app/admin`)
+2. **Login**: Use the admin password (set via `ADMIN_PASSWORD` environment variable)
+3. **Features**:
+   - Select topics to view analytics
+   - See top-performing images by clicks
+   - View average rankings
+   - Download raw data as CSV (includes user names and cookie IDs)
+   - Export data by topic or all topics
+
+### Alternative: Prisma Studio
+
+For database-level access:
 ```bash
 npx prisma studio
 ```
 This opens a web interface at http://localhost:5555 where you can browse, search, and filter all GameResult records.
 
-2. **Direct Database Access**: The results are stored in `prisma/dev.db` (SQLite file) during development.
-
 ## Deployment
 
-### Deploy to Vercel
+This app is configured to deploy to Vercel with a Neon PostgreSQL database.
 
-1. Push your code to GitHub
-2. Import the project in Vercel
-3. Add a Vercel Postgres database to your project
-4. Vercel will automatically set the required environment variables
-5. Run `npx prisma db push` in your deployment to set up the schema
+### Quick Deploy
+
+1. **Set up Neon Database**: Get connection strings from [Neon Console](https://console.neon.tech)
+2. **Deploy to Vercel**: Import from GitHub at [vercel.com/new](https://vercel.com/new)
+3. **Add Environment Variables** in Vercel:
+   - `DATABASE_URL` (Neon pooled connection)
+   - `DIRECT_URL` (Neon direct connection)
+4. **Deploy**: Vercel will automatically build and deploy
+
+📖 **Detailed deployment guide**: See [DEPLOYMENT.md](./DEPLOYMENT.md)
+
+Live at: **https://eyecatcher.vercel.app**
 
 ## Viewing Results
 
